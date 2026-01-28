@@ -16,6 +16,8 @@ public interface MemberService {
 
 	public List<Member> memberList() throws Exception;
 
+	public Member findId(Member member)throws Exception;
+
 	
 	
 	

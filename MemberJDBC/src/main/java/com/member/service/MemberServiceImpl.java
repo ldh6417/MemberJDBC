@@ -16,9 +16,8 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member login(Member member) {
-	    return memberDAO.login(member);
+		return memberDAO.login(member);
 	}
-
 
 	@Override
 	public int insertMember(Member member) throws Exception {
@@ -27,13 +26,11 @@ public class MemberServiceImpl implements MemberService {
 		return count;
 	}
 
-
 	@Override
 	public int updateMember(Member member, String oldID) throws Exception {
-	    int count = memberDAO.updateMember(member, oldID);
-	    return count;
+		int count = memberDAO.updateMember(member, oldID);
+		return count;
 	}
-
 
 	@Override
 	public int deleteMember(Member member) throws Exception {
@@ -41,14 +38,15 @@ public class MemberServiceImpl implements MemberService {
 		return count;
 	}
 
-
 	@Override
 	public List<Member> memberList() throws Exception {
-		List<Member> boardList = memberDAO.memberList();
-		return boardList;
+		List<Member> memberdList = memberDAO.memberList();
+		return memberdList;
 	}
 
-
-
+	@Override
+	public Member findId(Member member) throws Exception {
+		return memberDAO.findId(member);
+	}
 
 }

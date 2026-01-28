@@ -108,12 +108,12 @@ public class MemberController {
 	}
 
 ///////////////////////회원 리스트////////////////////////////
-	
+
 	@GetMapping("/list")
 	public String memberList(Model model) {
 
 		try {
-			List<Member> memberList = memberService.memberList(); 
+			List<Member> memberList = memberService.memberList();
 
 			model.addAttribute("memberList", memberList);
 
@@ -122,6 +122,27 @@ public class MemberController {
 		}
 
 		return "member/memberList";
+	}
+
+	//////////// 회원 찾기///////////////////////////
+	// 아이디 찾기 화면
+	@GetMapping("/findId")
+	public String findIdForm() {
+		return "member/findId";
+	}
+
+	// 아이디 찾기 처리 
+	@PostMapping("/findId")
+	public String findId(Member member, Model model) {
+
+		try {
+			Member findMember = memberService.findId(member);
+			model.addAttribute("findMember", findMember);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "member/findIdResult";
 	}
 
 }

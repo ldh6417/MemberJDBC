@@ -52,12 +52,12 @@ public class MemberDAO {
 				member.getPassword(), member.getOldID() // 기존 아이디로 찾기
 		);
 	}
+
 ///////회원 삭제
 	public int deleteMember(Member member) {
 		String query = "DELETE FROM MEMBER WHERE ID=?";
 		return jdbcTemplate.update(query, member.getID());
 	}
-	
 
 	public List<Member> memberList() {
 
@@ -69,8 +69,8 @@ public class MemberDAO {
 			public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
 
 				Member member = new Member();
-			    
-			    member.setNo(rs.getInt("MEMBER_NO"));
+
+				member.setNo(rs.getInt("MEMBER_NO"));
 				member.setName(rs.getString("NAME"));
 				member.setID(rs.getString("ID"));
 				member.setPassword(rs.getString("PASSWORD"));
@@ -80,6 +80,26 @@ public class MemberDAO {
 		});
 
 		return memberList;
+	}
+
+	/// 회원 찾기
+	public Member findId(Member m) {
+		String query = "SELECT * FROM MEMBER WHERE NAME = ?";
+		List<Member> list = jdbcTemplate.query(query, new RowMapper<Member>() {
+			@Override
+			public Member mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Member member = new Member();
+				member.setNo(rs.getInt("MEMBER_NO")); 
+				member.setName(rs.getString("NAME"));
+				member.setID(rs.getString("ID"));
+				member.setPassword(rs.getString("PASSWORD"));
+
+				return member;
+			}
+
+		}, m.getName());
+
+		return list.isEmpty() ? null : list.get(0);
 	}
 
 }
